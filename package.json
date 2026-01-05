@@ -1,0 +1,28 @@
+{
+    "name": "konsumsi-bbm-kendaraan",
+    "version": "1.0.0",
+    "type": "module",
+    "description": "Aplikasi tracking konsumsi BBM kendaraan - Pure client-side dengan localStorage",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview"
+    },
+    "devDependencies": {
+        "vite": "^5.4.0"
+    },
+    "dependencies": {
+        "bootstrap": "^5.3.2",
+        "bootstrap-icons": "^1.11.0",
+        "chart.js": "^4.4.0"
+    },
+    "keywords": [
+        "fuel",
+        "consumption",
+        "bbm",
+        "kendaraan",
+        "tracking"
+    ],
+    "author": "",
+    "license": "MIT"
+}

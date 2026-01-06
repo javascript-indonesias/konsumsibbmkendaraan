@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Riwayat - Konsumsi BBM</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/src/styles/main.css" />
+  </head>
+  <body>
+    <!-- Navbar (TASK-001) -->
+    <nav class="navbar navbar--simple">
+      <button id="backBtn" class="navbar-back" aria-label="Kembali">
+        <i class="bi bi-arrow-left"></i>
+      </button>
+      <h1 class="navbar-title">Riwayat Pengisian</h1>
+      <div class="navbar-spacer"></div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container container--page">
+      <!-- Page Header (TASK-002) -->
+      <div class="page-header">
+        <h2 class="page-title">Riwayat Pengisian</h2>
+        <span id="totalCount" class="count-badge">0</span>
+      </div>
+
+      <!-- Filter Bar (TASK-003) -->
+      <div id="filterBar" class="filter-bar">
+        <div class="filter-group">
+          <label for="vehicleFilter" class="filter-label">Kendaraan</label>
+          <select id="vehicleFilter" class="form-control form-control-sm">
+            <option value="">Semua Kendaraan</option>
+            <!-- Options will be populated by JS -->
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="timeFilter" class="filter-label">Periode</label>
+          <select id="timeFilter" class="form-control form-control-sm">
+            <option value="all">Semua</option>
+            <option value="1m">1 Bulan</option>
+            <option value="3m">3 Bulan</option>
+            <option value="6m">6 Bulan</option>
+            <option value="1y">1 Tahun</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Timeline Container (will be added in Phase 2) -->
+      <div id="timelineContainer" class="timeline-container">
+        <!-- Timeline items will be rendered here -->
+      </div>
+
+      <!-- Empty State (will be styled in Phase 5) -->
+      <div id="emptyState" class="empty-state hidden">
+        <i class="bi bi-inbox"></i>
+        <h3>Belum ada riwayat pengisian</h3>
+        <p>Mulai catat pengisian BBM kendaraan Anda</p>
+        <a href="/tambah.html" class="btn btn-primary">
+          <i class="bi bi-plus-lg"></i> Tambah Pengisian
+        </a>
+      </div>
+
+      <!-- Load More Indicator (will be used in Phase 3) -->
+      <div id="loadMoreIndicator" class="load-more-indicator hidden">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+
+      <!-- End of List Indicator (will be used in Phase 3) -->
+      <div id="endOfList" class="end-of-list hidden">
+        <i class="bi bi-check-circle"></i>
+        <span>Anda sudah melihat semua data</span>
+      </div>
+    </main>
+
+    <!-- Delete Confirmation Modal (will be added in Phase 4) -->
+    <div id="deleteModal" class="modal hidden">
+      <div class="modal-backdrop"></div>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title">Hapus Pengisian?</h3>
+            <button
+              type="button"
+              id="closeDeleteModal"
+              class="modal-close"
+              aria-label="Tutup"
+            >
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Data pengisian yang dihapus tidak dapat dikembalikan.</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              id="cancelDelete"
+              class="btn btn-outline-secondary"
+            >
+              Batal
+            </button>
+            <button type="button" id="confirmDelete" class="btn btn-danger">
+              <i class="bi bi-trash"></i> Hapus
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page Script -->
+    <script type="module" src="/src/pages/riwayat.js"></script>
+  </body>
+</html>

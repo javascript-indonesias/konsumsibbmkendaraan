@@ -207,6 +207,30 @@ export class StorageManager {
   }
 
   /**
+   * Get a specific data item by key (e.g., "fuelLogs", "vehicles", "settings")
+   * This provides a simpler interface for managers
+   * @param {string} key - The data key to retrieve
+   * @returns {*} The data for that key, or null if not found
+   */
+  getItem(key) {
+    const data = this.getData();
+    if (!data) return null;
+    return data[key] ?? null;
+  }
+
+  /**
+   * Set a specific data item by key (e.g., "fuelLogs", "vehicles", "settings")
+   * @param {string} key - The data key to set
+   * @param {*} value - The value to store
+   * @returns {boolean} Success status
+   */
+  setItem(key, value) {
+    const data = this.getData() || { ...DEFAULT_DATA };
+    data[key] = value;
+    return this.setData(data);
+  }
+
+  /**
    * Export data as JSON string
    * @returns {string} JSON string
    */

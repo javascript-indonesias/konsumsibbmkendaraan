@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Konsumsi BBM Kendaraan</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
+    />
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/src/styles/main.css" />
+  </head>
+  <body>
+    <!-- Navbar (TASK-002, TASK-003) -->
+    <nav class="navbar navbar-dashboard">
+      <div class="navbar-content">
+        <!-- Brand Logo -->
+        <div class="navbar-brand">
+          <i class="bi bi-speedometer2"></i>
+          <span class="navbar-brand-text">Konsumsi BBM</span>
+        </div>
+
+        <!-- Hamburger Menu (Mobile) -->
+        <button
+          type="button"
+          class="navbar-toggler"
+          id="navbarToggler"
+          aria-label="Toggle navigation"
+          aria-expanded="false"
+        >
+          <i class="bi bi-list"></i>
+        </button>
+
+        <!-- Navigation Links (Desktop) -->
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a href="/index.html" class="nav-link nav-link--active">
+              <i class="bi bi-house-door-fill"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/riwayat.html" class="nav-link">
+              <i class="bi bi-clock-history"></i>
+              <span>Riwayat</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/statistik.html" class="nav-link">
+              <i class="bi bi-bar-chart-fill"></i>
+              <span>Statistik</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/kendaraan.html" class="nav-link">
+              <i class="bi bi-car-front-fill"></i>
+              <span>Kendaraan</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/pengaturan.html" class="nav-link">
+              <i class="bi bi-gear-fill"></i>
+              <span>Pengaturan</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div class="navbar-mobile-menu hidden" id="navbarMobileMenu">
+        <ul class="navbar-mobile-nav">
+          <li class="nav-item">
+            <a href="/index.html" class="nav-link nav-link--active">
+              <i class="bi bi-house-door-fill"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/riwayat.html" class="nav-link">
+              <i class="bi bi-clock-history"></i>
+              <span>Riwayat</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/statistik.html" class="nav-link">
+              <i class="bi bi-bar-chart-fill"></i>
+              <span>Statistik</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/kendaraan.html" class="nav-link">
+              <i class="bi bi-car-front-fill"></i>
+              <span>Kendaraan</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/pengaturan.html" class="nav-link">
+              <i class="bi bi-gear-fill"></i>
+              <span>Pengaturan</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="dashboard-container">
+      <!-- Stats Cards Section (Phase 2) -->
+      <section class="stats-section">
+        <div class="row g-3" id="statsCards">
+          <!-- Cards will be rendered by JavaScript -->
+        </div>
+      </section>
+
+      <!-- Chart Section (Phase 3) -->
+      <section class="chart-section">
+        <div class="chart-card">
+          <div class="chart-header">
+            <h2 class="chart-title">Tren Konsumsi BBM</h2>
+            <div
+              class="btn-group chart-filter"
+              role="group"
+              aria-label="Filter periode"
+            >
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-secondary"
+                data-filter="3m"
+              >
+                3 Bulan
+              </button>
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-secondary"
+                data-filter="6m"
+              >
+                6 Bulan
+              </button>
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-secondary"
+                data-filter="1y"
+              >
+                1 Tahun
+              </button>
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-secondary active"
+                data-filter="all"
+              >
+                Semua
+              </button>
+            </div>
+          </div>
+          <div class="chart-body">
+            <canvas id="consumptionChart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- Timeline Preview Section (Phase 4) -->
+      <section class="timeline-preview-section">
+        <div class="section-header">
+          <h2 class="section-title">Pengisian Terakhir</h2>
+          <a href="/riwayat.html" class="section-link">
+            Lihat Semua
+            <i class="bi bi-arrow-right"></i>
+          </a>
+        </div>
+        <div id="timelinePreview" class="timeline-preview">
+          <!-- Timeline items will be rendered by JavaScript -->
+        </div>
+      </section>
+
+      <!-- Empty State (Phase 5) -->
+      <div id="emptyState" class="empty-state hidden">
+        <div class="empty-state__icon">
+          <i class="bi bi-graph-up"></i>
+        </div>
+        <h2 class="empty-state__title">Selamat Datang!</h2>
+        <p class="empty-state__description">
+          Mulai catat konsumsi BBM kendaraan Anda untuk melihat statistik dan
+          tren di sini.
+        </p>
+        <div class="empty-state__actions">
+          <a href="/kendaraan.html" class="btn btn-primary">
+            <i class="bi bi-plus-lg"></i>
+            <span>Tambah Kendaraan</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Skeleton Loaders (Phase 5) -->
+      <div id="skeletonLoaders" class="hidden">
+        <div class="row g-3">
+          <div class="col-12 col-md-6 col-lg-3">
+            <div class="skeleton-card"></div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3">
+            <div class="skeleton-card"></div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3">
+            <div class="skeleton-card"></div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3">
+            <div class="skeleton-card"></div>
+          </div>
+        </div>
+        <div class="skeleton-chart"></div>
+      </div>
+    </main>
+
+    <!-- FAB (Phase 5 - TASK-018) -->
+    <a href="/tambah.html" class="fab" aria-label="Tambah pengisian BBM">
+      <i class="bi bi-plus-lg"></i>
+    </a>
+
+    <!-- Page Script (Phase 6) -->
+    <script type="module" src="/src/pages/dashboard.js"></script>
+  </body>
+</html>

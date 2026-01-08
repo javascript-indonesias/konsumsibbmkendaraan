@@ -1799,3 +1799,135 @@ body.modal-open {
   box-shadow: 0 6px 16px rgba(231, 111, 81, 0.5);
 }
 
+
+/* ===== STATISTIK PAGE ===== */
+
+/* Summary Section */
+.summary-section {
+  margin-bottom: var(--spacing-xl);
+}
+
+.summary-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.summary-card__icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.summary-card__icon--primary {
+  background: rgba(4, 119, 59, 0.1);
+  color: var(--color-primary);
+}
+
+.summary-card__icon--success {
+  background: rgba(4, 119, 59, 0.1);
+  color: var(--color-success);
+}
+
+.summary-card__icon--danger {
+  background: rgba(255, 99, 132, 0.1);
+  color: var(--color-danger);
+}
+
+.summary-card__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.summary-card__title {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  margin: 0 0 var(--spacing-xs);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.summary-card__value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.summary-card__subtitle {
+  font-size: 0.875rem;
+  color: var(--color-text-tertiary);
+  margin: var(--spacing-xs) 0 0;
+}
+
+/* Chart Body Sizes */
+.chart-body--line {
+  height: 280px;
+}
+
+.chart-body--bar {
+  height: 300px;
+}
+
+.chart-body--hbar {
+  height: 250px;
+}
+
+/* Filter Label */
+.filter-label {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-xs);
+  display: block;
+}
+
+.filter-group {
+  flex: 1;
+  min-width: 120px;
+}
+
+.filter-bar__content {
+  display: flex;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+/* Responsive Charts */
+@media (min-width: 768px) {
+  .chart-body--line {
+    height: 320px;
+  }
+  
+  .chart-body--bar {
+    height: 350px;
+  }
+  
+  .chart-body--hbar {
+    height: 300px;
+  }
+}
+
+@media (min-width: 992px) {
+  .chart-body--line {
+    height: 380px;
+  }
+  
+  .chart-body--bar {
+    height: 400px;
+  }
+}
+

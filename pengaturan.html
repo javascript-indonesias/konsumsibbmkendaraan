@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pengaturan - Konsumsi BBM Kendaraan</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/src/styles/main.css" />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="navbar-content">
+        <a
+          href="/index.html"
+          class="navbar-back"
+          aria-label="Kembali ke Dashboard"
+        >
+          <i class="bi bi-arrow-left"></i>
+        </a>
+        <h2 class="navbar-title">Pengaturan</h2>
+      </div>
+    </nav>
+
+    <!-- Page Container -->
+    <div class="page-container">
+      <!-- Kendaraan Section (TASK-003) -->
+      <section class="settings-section">
+        <h3 class="settings-section__title">Kendaraan</h3>
+        <div class="settings-menu">
+          <a href="/kendaraan.html" class="settings-item">
+            <div class="settings-item__icon settings-item__icon--primary">
+              <i class="bi bi-car-front-fill"></i>
+            </div>
+            <div class="settings-item__content">
+              <h4 class="settings-item__title">Kelola Kendaraan</h4>
+              <p class="settings-item__subtitle">
+                Tambah, edit, atau hapus kendaraan
+              </p>
+            </div>
+            <i class="bi bi-chevron-right settings-item__chevron"></i>
+          </a>
+        </div>
+      </section>
+
+      <!-- Data Section (TASK-005) -->
+      <section class="settings-section">
+        <h3 class="settings-section__title">Data</h3>
+        <div class="settings-menu">
+          <!-- Export -->
+          <button type="button" class="settings-item" id="exportBtn">
+            <div class="settings-item__icon settings-item__icon--secondary">
+              <i class="bi bi-download"></i>
+            </div>
+            <div class="settings-item__content">
+              <h4 class="settings-item__title">Export Data</h4>
+              <p class="settings-item__subtitle">
+                Unduh semua data sebagai file CSV
+              </p>
+            </div>
+            <i class="bi bi-chevron-right settings-item__chevron"></i>
+          </button>
+
+          <!-- Import -->
+          <button type="button" class="settings-item" id="importBtn">
+            <div class="settings-item__icon settings-item__icon--accent">
+              <i class="bi bi-upload"></i>
+            </div>
+            <div class="settings-item__content">
+              <h4 class="settings-item__title">Import Data</h4>
+              <p class="settings-item__subtitle">Restore data dari file CSV</p>
+            </div>
+            <i class="bi bi-chevron-right settings-item__chevron"></i>
+          </button>
+        </div>
+      </section>
+
+      <!-- Danger Zone Section (TASK-013) -->
+      <section class="settings-section settings-section--danger">
+        <h3 class="settings-section__title">Zona Berbahaya</h3>
+        <div class="settings-menu">
+          <button
+            type="button"
+            class="settings-item settings-item--danger"
+            id="resetBtn"
+          >
+            <div class="settings-item__icon settings-item__icon--danger">
+              <i class="bi bi-trash3-fill"></i>
+            </div>
+            <div class="settings-item__content">
+              <h4 class="settings-item__title">Hapus Semua Data</h4>
+              <p class="settings-item__subtitle">
+                Hapus seluruh kendaraan dan riwayat pengisian
+              </p>
+            </div>
+            <i class="bi bi-chevron-right settings-item__chevron"></i>
+          </button>
+        </div>
+      </section>
+
+      <!-- Tentang Section (TASK-019) -->
+      <section class="settings-section">
+        <h3 class="settings-section__title">Tentang</h3>
+        <div class="about-card">
+          <div class="about-card__header">
+            <div class="about-card__icon">
+              <i class="bi bi-speedometer2"></i>
+            </div>
+            <div class="about-card__info">
+              <h4 class="about-card__name">Konsumsi BBM Kendaraan</h4>
+              <p class="about-card__version">Versi 1.0.0</p>
+            </div>
+          </div>
+          <p class="about-card__description">
+            Aplikasi pencatatan konsumsi bahan bakar kendaraan untuk membantu
+            Anda memantau efisiensi dan pengeluaran BBM.
+          </p>
+          <p class="about-card__copyright">
+            © 2026 Konsumsi BBM. Dibuat dengan ❤️ di Indonesia.
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <!-- Import Modal (TASK-008, TASK-010) -->
+    <div id="importModal" class="modal hidden">
+      <div class="modal-backdrop"></div>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title">Import Data</h3>
+            <button
+              type="button"
+              id="closeImportModal"
+              class="modal-close"
+              aria-label="Tutup"
+            >
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- File Drop Zone -->
+            <div class="file-drop-zone" id="fileDropZone">
+              <i class="bi bi-cloud-upload file-drop-zone__icon"></i>
+              <p class="file-drop-zone__text">
+                Seret file CSV ke sini atau
+                <label for="fileInput" class="file-drop-zone__link"
+                  >pilih file</label
+                >
+              </p>
+              <input type="file" id="fileInput" accept=".csv" class="hidden" />
+            </div>
+
+            <!-- Preview (shown after file selected) -->
+            <div id="importPreview" class="import-preview hidden">
+              <h4 class="import-preview__title">Preview Data</h4>
+              <div class="import-preview__stats">
+                <div class="import-preview__stat">
+                  <span class="import-preview__label">Kendaraan</span>
+                  <span class="import-preview__value" id="previewVehicleCount"
+                    >0</span
+                  >
+                </div>
+                <div class="import-preview__stat">
+                  <span class="import-preview__label">Pengisian BBM</span>
+                  <span class="import-preview__value" id="previewLogCount"
+                    >0</span
+                  >
+                </div>
+              </div>
+              <div class="alert alert-warning">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+                <span
+                  >Data yang ada akan digabung dengan data import. Duplikat akan
+                  dilewati.</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="cancelImport" class="btn btn-outline">
+              Batal
+            </button>
+            <button
+              type="button"
+              id="confirmImport"
+              class="btn btn-primary"
+              disabled
+            >
+              <i class="bi bi-upload"></i>
+              Import Data
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- First Warning Modal (TASK-015) -->
+    <div id="deleteWarningModal" class="modal hidden">
+      <div class="modal-backdrop"></div>
+      <div class="modal-dialog modal-dialog--small">
+        <div class="modal-content">
+          <div class="modal-header modal-header--danger">
+            <h3 class="modal-title">
+              <i class="bi bi-exclamation-triangle-fill"></i>
+              Peringatan!
+            </h3>
+            <button
+              type="button"
+              id="closeDeleteWarning"
+              class="modal-close"
+              aria-label="Tutup"
+            >
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Anda akan menghapus <strong>semua data</strong> termasuk:</p>
+            <ul class="delete-warning__list">
+              <li><span id="deleteVehicleCount">0</span> kendaraan</li>
+              <li><span id="deleteLogCount">0</span> catatan pengisian BBM</li>
+            </ul>
+            <p class="text-danger">
+              <strong>Tindakan ini tidak dapat dibatalkan!</strong>
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              id="cancelDeleteWarning"
+              class="btn btn-outline"
+            >
+              Batal
+            </button>
+            <button type="button" id="proceedDelete" class="btn btn-danger">
+              Lanjutkan
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Second Confirmation Modal (TASK-016) -->
+    <div id="deleteConfirmModal" class="modal hidden">
+      <div class="modal-backdrop"></div>
+      <div class="modal-dialog modal-dialog--small">
+        <div class="modal-content">
+          <div class="modal-header modal-header--danger">
+            <h3 class="modal-title">
+              <i class="bi bi-shield-exclamation"></i>
+              Konfirmasi Final
+            </h3>
+            <button
+              type="button"
+              id="closeDeleteConfirm"
+              class="modal-close"
+              aria-label="Tutup"
+            >
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>
+              Ketik <strong class="text-danger">HAPUS</strong> untuk
+              mengkonfirmasi:
+            </p>
+            <input
+              type="text"
+              id="deleteConfirmInput"
+              class="form-control"
+              placeholder="Ketik HAPUS"
+              autocomplete="off"
+            />
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              id="cancelDeleteConfirm"
+              class="btn btn-outline"
+            >
+              Batal
+            </button>
+            <button
+              type="button"
+              id="confirmDelete"
+              class="btn btn-danger"
+              disabled
+            >
+              <i class="bi bi-trash"></i>
+              Hapus Semua Data
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Page Script -->
+    <script type="module" src="/src/pages/pengaturan.js"></script>
+  </body>
+</html>
